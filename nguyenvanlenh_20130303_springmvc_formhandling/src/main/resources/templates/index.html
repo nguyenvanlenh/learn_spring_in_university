@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Đăng ký thành viên</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+		integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+</head>
+
+<body>
+	<div class="container mb-5">
+		<h2 class="mt-5 mb-4">Danh sách thành viên</h2>
+		<div class="row justify-content-between">
+			<div class="col-auto">
+				<strong>Tổng số thành viên: <span th:text="${listUsers.size()}"></span></strong>
+			</div>
+			<div class="col-auto">
+				<a class="btn btn-primary" th:href="@{/register}">Thêm thành viên</a>
+			</div>
+		</div>
+
+		<div class="row mt-3 mb-3">
+			<div class="col">
+				<div class="d-flex align-items-center">
+					<span class="me-2">Chọn giới tính:</span>
+					<select class="form-select w-auto" id="genderSelect">
+						<option value="" selected>Chọn ..</option>
+						<option value="Nam">Nam</option>
+						<option value="Nữ">Nữ</option>
+					</select>
+				</div>
+			</div>
+		</div>
+
+		<div class="row">
+			<table class="table table-bordered" id="userTable">
+				<thead>
+					<tr>
+						<th scope="col">Họ tên</th>
+						<th scope="col">Ngày sinh</th>
+						<th scope="col">Giới tính</th>
+						<th scope="col">Email</th>
+					</tr>
+				</thead>
+				<tbody th:if="${listUsers != null and not #lists.isEmpty(listUsers)}">
+					<tr th:each="user : ${listUsers}">
+						<td> <span th:text="${user.name}">Nguyễn Văn Lênh</span></td>
+						<td><span th:text="${#dates.format(user.birthday, 'dd-MM-yyyy')}">Date</span></td>
+						<td><span th:text="${user.gender}">Nam</span></td>
+						<td><a th:href="@{/users/{id}(id=${user.id})}" th:text="${user.email}">email@gmail.com</a></td>
+					</tr>
+				</tbody>
+
+			</table>
+
+		</div>
+
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+		integrity="sha384-oBqDVmMxFTKwzxwjkO+rz/8mB/4E4Jj59Tz0mzYzpsTnDQDxEJ2kGbpCLWg1I593"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+		integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+		crossorigin="anonymous"></script>
+
+	<script>
+		$(document).ready(function () {
+			$('#genderSelect').change(function () {
+				var selectedGender = $(this).val(); // Lấy giá trị giới tính được chọn
+
+				// Gửi yêu cầu AJAX đến máy chủ với giá trị giới tính
+				$.ajax({
+					type: 'GET',
+					url: '/users', // Đường dẫn đến controller xử lý yêu cầu
+					data: {gender: selectedGender}, // Dữ liệu gửi đi (có thể là giới tính)
+					success: function (data) {
+						// Xóa nội dung cũ của tbody
+						$('#userTable tbody').empty();
+						// Duyệt qua mỗi user trong dữ liệu và thêm vào tbody
+
+						var formatDate = (date) => {
+							// Chuyển đổi chuỗi ngày tháng thành đối tượng Date
+							var parsedDate = new Date(date);
+
+							// Lấy ra ngày, tháng và năm từ đối tượng Date
+							var day = parsedDate.getDate();
+							var month = parsedDate.getMonth() + 1; // Lưu ý: Tháng trong JavaScript bắt đầu từ 0
+							var year = parsedDate.getFullYear();
+
+							// Định dạng lại chuỗi ngày tháng
+							var formattedDate = day + '/' + month + '/' + year;
+
+							return formattedDate;
+						}
+
+
+						$.each(data, function (index, user) {
+							var formattedBirthday = formatDate(user.birthday);
+							var row = '<tr>' +
+								'<td>' + user.name + '</td>' +
+								'<td>' + formattedBirthday + '</td>' +
+								'<td>' + user.gender + '</td>' +
+								'<td><a href="/users/' + user.id + '">' + user.email + '</a></td>' +
+								'</tr>';
+							$('#userTable tbody').append(row);
+						});
+					},
+					error: function () {
+						console.log('Đã xảy ra lỗi khi gửi yêu cầu AJAX');
+					}
+				});
+			});
+		});
+	</script>
+</body>
+
+</html>

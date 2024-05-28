@@ -1,0 +1,10 @@
+<header th:fragment="header">
+    <div th:if="${session.user != null}">
+        <nav class="navbar navbar-light bg-light d-flex justify-content-end align-items-center">
+            <div>
+                <span> Chào <span th:text="${session.user.username}">Tên người dùng</span></span>
+                <strong>|<a th:href="@{/logout}">Thoát</a></strong>
+            </div>
+        </nav>
+    </div>
+</header>

@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache
+         Software Foundation//DTD Tiles Configuration 3.0//EN"
+         "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+	<definition name="baseLayout"
+		template="/WEB-INF/layout/template/base.jsp">
+		<put-attribute name="title" value="" />
+		<put-attribute name="header"
+			value="/WEB-INF/layout/template/header.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="footer"
+			value="/WEB-INF/layout/template/footer.jsp" />
+	</definition>
+
+	<definition name="index" extends="baseLayout">
+		<put-attribute name="title" value="Trang chủ" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/index.jsp" />
+	</definition>
+	<definition name="login" extends="baseLayout">
+		<put-attribute name="title" value="Đăng nhập" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/login.jsp" />
+	</definition>
+	<definition name="register" extends="baseLayout">
+		<put-attribute name="title" value="Đăng ký" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/register.jsp" />
+	</definition>
+
+	<definition name="welcome" extends="baseLayout">
+		<put-attribute name="title" value="Welcome my website" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/welcome.jsp" />
+	</definition>
+	<definition name="upload" extends="baseLayout">
+		<put-attribute name="title" value="Upload 1 file" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/upload.jsp" />
+	</definition>
+	<definition name="uploads" extends="baseLayout">
+		<put-attribute name="title" value="Multi upload file" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/uploadMultiFile.jsp" />
+	</definition>
+	<definition name="user-add" extends="baseLayout">
+		<put-attribute name="title" value="Thêm người dùng" />
+		<put-attribute name="content"
+			value="/WEB-INF/jsp/addUser.jsp" />
+	</definition>
+
+
+</tiles-definitions>

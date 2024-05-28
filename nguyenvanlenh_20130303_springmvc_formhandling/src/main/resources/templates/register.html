@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="UTF-8">
+	<title>Đăng ký thành viên</title>
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/css/bootstrap.min.css" rel="stylesheet"
+		integrity="sha384-KK94CHFLLe+nY2dmCWGMq91rCGa5gtU4mk92HdvYe+M/SXH301p5ILy+dN9+nJOZ" crossorigin="anonymous">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css"
+		integrity="sha512-xh6O/CkQoPOWDdYTDqeRdPCVd1SpvCA9XXcUnZS2FmJNp1coAFzvtCN9BmamE+4aHK8yyUHUSCcJHgXloTyT2A=="
+		crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<script type="text/javascript" th:src="@{/webjars/jquery/jquery.min.js}"></script>
+</head>
+
+<body>
+	<div class="container mb-5">
+		<h2 class="mt-5 mb-4">Đăng ký thành viên</h2>
+		<form th:action="@{/register}" th:object="${user}" method="post" id="registerForm">
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label for="email" class="form-label">Địa chỉ Email *</label>
+					<input type="email" class="form-control required" id="email" th:field="*{email}">
+					<div class="invalid-feedback"></div>
+				</div>
+				<div class="col-md-6">
+					<label for="password" class="form-label">Mật khẩu *</label>
+					<input type="password" class="form-control required" id="password" th:field="*{password}">
+					<div class="invalid-feedback"></div>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label for="confirmPassword" class="form-label">Nhập lại mật khẩu *</label>
+					<input type="password" class="form-control required" id="confirmPassword">
+					<div class="invalid-feedback"></div>
+				</div>
+				<div class="col-md-6">
+					<label for="name" class="form-label">Họ Tên *</label>
+					<input type="text" class="form-control required" id="name" th:field="*{name}">
+					<div class="invalid-feedback"></div>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label for="birthday" class="form-label">Ngày sinh *</label>
+					<input type="date" class="form-control required" id="birthday" th:field="*{birthday}"
+						placeholder="dd/mm/yyyy">
+					<div class="invalid-feedback"></div>
+				</div>
+				<div class="col-md-6">
+					<label class="form-label">Giới tính</label><br>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="gender" id="male" value="Nam"
+							th:field="*{gender}">
+						<label class="form-check-label" for="Nam">Nam</label>
+					</div>
+					<div class="form-check form-check-inline">
+						<input class="form-check-input" type="radio" name="gender" id="female" value="Nữ"
+							th:field="*{gender}">
+						<label class="form-check-label" for="Nu">Nữ</label>
+					</div>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label for="profession" class="form-label">Trình độ văn hóa</label>
+					<select class="form-select" id="profession" th:field="*{profession}">
+						<option value="">Chọn ...</option>
+						<option value="Tốt nghiệp phổ thông">Tốt nghiệp phổ thông</option>
+						<option value="Cao đẳng">Cao đẳng</option>
+						<option value="Đại học">Đại học</option>
+						<option value="Thạc sĩ">Thạc sĩ</option>
+						<option value="Tiến sĩ">Tiến sĩ</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+					<label for="city" class="form-label">Thành phố</label>
+					<select class="form-select" id="city" th:field="*{city}">
+						<option value="">Chọn ...</option>
+						<option value="Hồ Chí Minh">Hồ Chí Minh</option>
+						<option value="Quảng Ngãi">Quảng Ngãi</option>
+						<option value="Đà Nẵng">Đà Nẵng</option>
+						<option value="Hà Nội">Hà Nội</option>
+					</select>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label for="county" class="form-label">Quận</label>
+					<select class="form-select" id="county" th:field="*{county}">
+						<option value="">Chọn ...</option>
+						<option value="quan1">Quận 1</option>
+						<option value="quan3">Quận 3</option>
+						<option value="quan4">Quận 4</option>
+						<option value="thuDuc">Tp Thủ Đức</option>
+						<option value="tanBinh">Tân Bình</option>
+					</select>
+				</div>
+				<div class="col-md-6">
+					<label for="ward" class="form-label">Phường</label>
+					<select class="form-select" id="ward" th:field="*{ward}">
+						<option value="">Chọn ...</option>
+						<option value="phuongBenNghe">Phường Bến Nghé</option>
+						<option value="phuongDakao">Phường Đakao</option>
+						<option value="phuong1">Phường 1</option>
+						<option value="binhChieu">Bình Chiểu</option>
+						<option value="tamBinh">Tam Bình</option>
+						<option value="linhDong">Linh Đông</option>
+						<option value="linhTrung">Linh Trung</option>
+						<option value="hiepBinhChieu">Hiệp Bình Chiểu</option>
+						<option value="phuocLongA">Phước Long A</option>
+					</select>
+				</div>
+			</div>
+			<div class="row mb-3">
+				<div class="col-md-6">
+					<label for="address" class="form-label">Địa chỉ</label>
+					<input type="text" class="form-control" id="address" th:field="*{address}">
+				</div>
+				<div class="col-md-6">
+					<label for="phone" class="form-label">Số điện thoại</label>
+					<input type="text" class="form-control" id="phone" th:field="*{phone}">
+				</div>
+			</div>
+			 <div class="mt-2 mb-2 d-flex">
+                <a th:href="@{/}" class="btn btn-secondary w-50 m-3">Hủy</a>
+                <button type="submit" class="btn btn-primary w-50 m-3">Gửi</button>
+            </div>
+		</form>
+	</div>
+
+	<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
+		integrity="sha384-oBqDVmMxFTKwzxwjkO+rz/8mB/4E4Jj59Tz0mzYzpsTnDQDxEJ2kGbpCLWg1I593"
+		crossorigin="anonymous"></script>
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.min.js"
+		integrity="sha384-cn7l7gDp0eyniUwwAZgrzD06kc/tftFf19TOAs2zVinnD/C7E91j9yyk5//jjpt/"
+		crossorigin="anonymous"></script>
+
+	<script>
+		$(document).ready(function () {
+			$('#registerForm').submit(function (e) {
+				e.preventDefault(); // Ngăn chặn việc submit form mặc định
+
+				var isValid = true; // Biến kiểm tra xem dữ liệu có hợp lệ hay không
+				var isEmailValid = true; // Biến kiểm tra xem email có hợp lệ hay không
+
+				// Kiểm tra các trường input có class 'required'
+				$('.required').each(function () {
+					if (!$(this).val().trim()) { // Nếu trường input không có giá trị hoặc chỉ chứa khoảng trắng
+						isValid = false;
+						$(this).addClass('is-invalid'); // Thêm class 'is-invalid' để hiển thị lỗi
+						$(this).siblings('.invalid-feedback').text("Bạn không thể để trống dữ liệu này");
+					} else {
+						// Kiểm tra dữ liệu email
+						var email = $('#email').val();
+						var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+						if (!emailRegex.test(email)) {
+							isEmailValid = false;
+							$('#email').addClass('is-invalid');
+							$('#email').siblings('.invalid-feedback').text("Email không hợp lệ. Thử lại.");
+						} else {
+							$.ajax({
+								type: 'GET',
+								url: '/users/email',
+								data: {email: email},
+								success: function (response) {
+									// Kiểm tra kết quả trả về từ server và hiển thị phản hồi tương ứng
+									if (response.includes("Email đã tồn tại")) {
+										isEmailValid = false;
+										$('#email').addClass('is-invalid');
+										$('#email').siblings('.invalid-feedback').text(response);
+									} else {
+										$('#email').removeClass('is-invalid');
+										$('#email').siblings('.invalid-feedback').text("");
+									}
+								},
+								error: function () {
+									console.log('Đã xảy ra lỗi khi gửi yêu cầu kiểm tra email.');
+								},
+								async: false // Đảm bảo Ajax gửi yêu cầu và nhận phản hồi trước khi tiếp tục xử lý
+							});
+						}
+						// Tiếp tục kiểm tra các trường input khác (mật khẩu, ngày sinh, họ tên)...
+					}
+				});
+
+				// Nếu email không hợp lệ, không submit form
+				if (!isEmailValid) {
+					isValid = false;
+				}
+
+				// Nếu dữ liệu hợp lệ, submit form
+				if (isValid) {
+					this.submit();
+				}
+			});
+		});
+
+	</script>
+</body>
+
+</html>
